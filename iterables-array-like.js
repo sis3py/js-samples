@@ -52,6 +52,53 @@ while (1) {
 // l
 // o
 
+// Async iterators
+
+const asyncIteratorRange = {
+  from: 1,
+  to: 5,
+
+  [Symbol.asyncIterator]() {
+    // async iterator dedicated symbol
+    return {
+      current: this.from,
+      last: this.to,
+
+      async next() {
+        // // Simulate an async call
+        await new Promise(resolve => setTimeout(resolve, 1000));
+
+        if (this.current <= this.last) {
+          return { done: false, value: this.current++ };
+        } else {
+          return { done: true };
+        }
+      }
+    };
+  }
+};
+
+(async () => {
+  for await (let value of asyncIteratorRange) {
+    console.log(value);
+  }
+})();
+
+/* 
+
+OUTPUT: 
+
+1
+(1 second after)
+2
+(1 second after)
+3
+(1 second after)
+4
+(1 second after)
+5
+*/
+
 // Array like : objects that have indexes and length, so they look like arrays.
 
 const arrayLike = {
