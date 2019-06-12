@@ -1,5 +1,21 @@
 // DOM Modifying the document
 
+/* 
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Test</title>
+    <meta charset="UTF-8" />
+  </head>
+
+  <body>
+    <div id="content"></div>
+    <div id="app"></div>
+    <script src="src/index.js"></script>
+  </body>
+</html>
+*/
+
 // Creates a new element with the given tag
 const div = document.createElement("div");
 
