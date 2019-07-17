@@ -1,6 +1,6 @@
 // Decorators and forwarding
 
-// Transparent caching
+// Memoize
 // Given a CPU-heavy pure function func(x)
 // We want to cache the results for different x
 // to avoid spending extra-time on recalculations
@@ -11,9 +11,9 @@ function hash() {
   return [].join.call(arguments); // Method borrowing : borrow the method from array [].join
 }
 
-// This is the caching decorator that will return a wrapper above the given function
-// This wrapper will add the caching feature
-function cachingDecorator(func, hash) {
+// This is the memoize decorator that will return a wrapper above the given function
+// This wrapper will add the memoize feature
+function memoizeDecorator(func, hash) {
   const cache = new Map(); // This is the cache storage
   return function() {
     const key = hash(arguments); // Build the key
@@ -47,8 +47,8 @@ const module = {
   }
 };
 
-module.heavy = cachingDecorator(module.heavy, hash);
-heavy = cachingDecorator(heavy, hash);
+module.heavy = memoizeDecorator(module.heavy, hash);
+heavy = memoizeDecorator(heavy, hash);
 
 // First module.heavy(20) call, no cache yet
 console.time("module.heavy() no cache");
